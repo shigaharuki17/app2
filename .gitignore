@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+.env
+.env.*
+data/*.log
+generated/
+generated-offline/
+data/runs/*.json
+!data/runs/.gitkeep

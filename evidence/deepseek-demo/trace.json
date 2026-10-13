@@ -1,0 +1,428 @@
+{
+  "id": "d5350de78bec46588462d2f0c861e5c3",
+  "filename": "order_service.py",
+  "source": "\"\"\"订单金额计算模块：演示类型提示、异常和类方法的文档生成。\"\"\"\nfrom dataclasses import dataclass\nfrom decimal import Decimal\n\nTAX_RATE = Decimal(\"0.06\")\n\n\n@dataclass\nclass OrderItem:\n    \"\"\"一项订单商品，保存名称、单价和数量。\"\"\"\n    name: str\n    price: Decimal\n    quantity: int = 1\n\n    def subtotal(self) -> Decimal:\n        \"\"\"计算商品小计。单价和数量不能为负。\"\"\"\n        if self.price < 0 or self.quantity < 0:\n            raise ValueError(\"价格和数量不能为负\")\n        return self.price * self.quantity\n\n\ndef calculate_total(items: list[OrderItem], discount: Decimal = Decimal(\"0\")) -> Decimal:\n    \"\"\"计算折扣后含税总额，折扣必须在 0 到 1 之间。\"\"\"\n    if not Decimal(\"0\") <= discount <= Decimal(\"1\"):\n        raise ValueError(\"折扣必须在 0 到 1 之间\")\n    subtotal = sum((item.subtotal() for item in items), Decimal(\"0\"))\n    return (subtotal * (1 - discount) * (1 + TAX_RATE)).quantize(Decimal(\"0.01\"))\n\n\nif __name__ == \"__main__\":\n    print(calculate_total([OrderItem(\"笔记本\", Decimal(\"12.50\"), 2)]))\n",
+  "mode": "ai",
+  "status": "completed",
+  "created_at": "2026-10-13T03:41:11.527+00:00",
+  "updated_at": "2026-10-13T03:45:08.437+00:00",
+  "nodes": {
+    "analyzer": "succeeded",
+    "writer": "succeeded",
+    "reviewer": "succeeded"
+  },
+  "outputs": {
+    "analyzer": {
+      "filename": "order_service.py",
+      "source_hash": "0d30b9f34384d72ad266a244dc69337542059b3a31576f3df8b466c8d5faebcb",
+      "module_docstring": "订单金额计算模块：演示类型提示、异常和类方法的文档生成。",
+      "line_count": 31,
+      "imports": [
+        "dataclasses",
+        "decimal"
+      ],
+      "constants": [
+        "TAX_RATE"
+      ],
+      "functions": [
+        {
+          "name": "calculate_total",
+          "signature": "calculate_total(items: list[OrderItem], discount: Decimal=Decimal('0')) -> Decimal",
+          "line": 22,
+          "end_line": 27,
+          "docstring": "计算折扣后含税总额，折扣必须在 0 到 1 之间。",
+          "calls": [
+            "(subtotal * (1 - discount) * (1 + TAX_RATE)).quantize",
+            "Decimal",
+            "ValueError",
+            "item.subtotal",
+            "sum"
+          ],
+          "raises": [
+            "ValueError('折扣必须在 0 到 1 之间')"
+          ],
+          "async": false
+        }
+      ],
+      "classes": [
+        {
+          "name": "OrderItem",
+          "line": 9,
+          "bases": [],
+          "docstring": "一项订单商品，保存名称、单价和数量。",
+          "methods": [
+            {
+              "name": "OrderItem.subtotal",
+              "signature": "OrderItem.subtotal(self) -> Decimal",
+              "line": 15,
+              "end_line": 19,
+              "docstring": "计算商品小计。单价和数量不能为负。",
+              "calls": [
+                "ValueError"
+              ],
+              "raises": [
+                "ValueError('价格和数量不能为负')"
+              ],
+              "async": false
+            }
+          ]
+        }
+      ],
+      "has_main": true
+    },
+    "writer": {
+      "document": "# order_service.py 代码说明\n\n## 模块概览\n\n订单金额计算模块：演示类型提示、异常和类方法的文档生成。\n\n源文件共 31 行，包含 1 个顶层函数、1 个类。\n\n## 依赖与常量\n\n导入模块：` dataclasses `, ` decimal `\n\n顶层常量：` TAX_RATE `\n\n## API 参考\n\n### 类 ` OrderItem `\n\n一项订单商品，保存名称、单价和数量。\n\n继承：无显式基类\n\n### ` calculate_total `\n\n```python\ncalculate_total(items: list[OrderItem], discount: Decimal=Decimal('0')) -> Decimal\n```\n\n计算折扣后含税总额，折扣必须在 0 到 1 之间。\n\n源码位置：第 22–27 行。\n\n直接调用（静态提取）：` (subtotal * (1 - discount) * (1 + TAX_RATE)).quantize `, ` Decimal `, ` ValueError `, ` item.subtotal `, ` sum `\n\n显式抛出的异常：` ValueError('折扣必须在 0 到 1 之间') `\n\n### ` OrderItem.subtotal `\n\n```python\nOrderItem.subtotal(self) -> Decimal\n```\n\n计算商品小计。单价和数量不能为负。\n\n源码位置：第 15–19 行。\n\n直接调用（静态提取）：` ValueError `\n\n显式抛出的异常：` ValueError('价格和数量不能为负') `\n\n## 使用与限制\n\n存在主入口保护，可参考源码中的入口调用。\n\n本工具只解析代码，不执行用户源码，不推断运行结果。动态导入、继承解析、外部依赖副作用和嵌套定义不属于本版分析范围。\n\n缺少 docstring 的对象：无\n\n## 来源校验\n\n源码 SHA-256：0d30b9f34384d72ad266a244dc69337542059b3a31576f3df8b466c8d5faebcb",
+      "method": "ai",
+      "llm": {
+        "provider": "DeepSeek",
+        "model": "deepseek-flash",
+        "request_id": "748f6fac-2dbb-475d-928e-e250e6817d16",
+        "usage": {
+          "prompt_tokens": 964,
+          "completion_tokens": 410,
+          "total_tokens": 1374,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 196
+        },
+        "finish_reason": "stop"
+      },
+      "source_hash": "0d30b9f34384d72ad266a244dc69337542059b3a31576f3df8b466c8d5faebcb",
+      "revision": 1
+    },
+    "reviewer": {
+      "approved": true,
+      "checks": [
+        {
+          "name": "来源一致",
+          "passed": true
+        },
+        {
+          "name": "章节：模块概览",
+          "passed": true
+        },
+        {
+          "name": "章节：依赖与常量",
+          "passed": true
+        },
+        {
+          "name": "章节：API 参考",
+          "passed": true
+        },
+        {
+          "name": "章节：使用与限制",
+          "passed": true
+        },
+        {
+          "name": "章节：来源校验",
+          "passed": true
+        },
+        {
+          "name": "签名：calculate_total",
+          "passed": true
+        },
+        {
+          "name": "签名：OrderItem.subtotal",
+          "passed": true
+        },
+        {
+          "name": "类：OrderItem",
+          "passed": true
+        },
+        {
+          "name": "DeepSeek 语义审校",
+          "passed": true
+        }
+      ],
+      "issues": [],
+      "warnings": [],
+      "coverage": {
+        "covered": 2,
+        "total": 2
+      },
+      "semantic_review": {
+        "approved": true,
+        "issues": [],
+        "warnings": []
+      },
+      "llm": {
+        "provider": "DeepSeek",
+        "model": "deepseek-flash",
+        "request_id": "8eb91481-8226-43fe-9b62-6ea3a0f8aec2",
+        "usage": {
+          "prompt_tokens": 958,
+          "completion_tokens": 15,
+          "total_tokens": 973,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 190
+        },
+        "finish_reason": "stop"
+      },
+      "scope": "结构、签名、来源一致性；不保证自然语言语义正确。"
+    }
+  },
+  "messages": [
+    {
+      "sender": "analyzer",
+      "receiver": "writer",
+      "kind": "analysis_ready",
+      "payload": {
+        "filename": "order_service.py",
+        "source_hash": "0d30b9f34384d72ad266a244dc69337542059b3a31576f3df8b466c8d5faebcb",
+        "module_docstring": "订单金额计算模块：演示类型提示、异常和类方法的文档生成。",
+        "line_count": 31,
+        "imports": [
+          "dataclasses",
+          "decimal"
+        ],
+        "constants": [
+          "TAX_RATE"
+        ],
+        "functions": [
+          {
+            "name": "calculate_total",
+            "signature": "calculate_total(items: list[OrderItem], discount: Decimal=Decimal('0')) -> Decimal",
+            "line": 22,
+            "end_line": 27,
+            "docstring": "计算折扣后含税总额，折扣必须在 0 到 1 之间。",
+            "calls": [
+              "(subtotal * (1 - discount) * (1 + TAX_RATE)).quantize",
+              "Decimal",
+              "ValueError",
+              "item.subtotal",
+              "sum"
+            ],
+            "raises": [
+              "ValueError('折扣必须在 0 到 1 之间')"
+            ],
+            "async": false
+          }
+        ],
+        "classes": [
+          {
+            "name": "OrderItem",
+            "line": 9,
+            "bases": [],
+            "docstring": "一项订单商品，保存名称、单价和数量。",
+            "methods": [
+              {
+                "name": "OrderItem.subtotal",
+                "signature": "OrderItem.subtotal(self) -> Decimal",
+                "line": 15,
+                "end_line": 19,
+                "docstring": "计算商品小计。单价和数量不能为负。",
+                "calls": [
+                  "ValueError"
+                ],
+                "raises": [
+                  "ValueError('价格和数量不能为负')"
+                ],
+                "async": false
+              }
+            ]
+          }
+        ],
+        "has_main": true
+      },
+      "timestamp": "2026-10-13T03:41:11.533+00:00"
+    },
+    {
+      "sender": "writer",
+      "receiver": "reviewer",
+      "kind": "draft_ready",
+      "payload": {
+        "document": "# order_service.py 代码说明\n\n## 模块概览\n\n订单金额计算模块：演示类型提示、异常和类方法的文档生成。\n\n源文件共 31 行，包含 1 个顶层函数、1 个类。\n\n## 依赖与常量\n\n导入模块：` dataclasses `, ` decimal `\n\n顶层常量：` TAX_RATE `\n\n## API 参考\n\n### 类 ` OrderItem `\n\n一项订单商品，保存名称、单价和数量。\n\n继承：无显式基类\n\n### ` calculate_total `\n\n```python\ncalculate_total(items: list[OrderItem], discount: Decimal=Decimal('0')) -> Decimal\n```\n\n计算折扣后含税总额，折扣必须在 0 到 1 之间。\n\n源码位置：第 22–27 行。\n\n直接调用（静态提取）：` (subtotal * (1 - discount) * (1 + TAX_RATE)).quantize `, ` Decimal `, ` ValueError `, ` item.subtotal `, ` sum `\n\n显式抛出的异常：` ValueError('折扣必须在 0 到 1 之间') `\n\n### ` OrderItem.subtotal `\n\n```python\nOrderItem.subtotal(self) -> Decimal\n```\n\n计算商品小计。单价和数量不能为负。\n\n源码位置：第 15–19 行。\n\n直接调用（静态提取）：` ValueError `\n\n显式抛出的异常：` ValueError('价格和数量不能为负') `\n\n## 使用与限制\n\n存在主入口保护，可参考源码中的入口调用。\n\n本工具只解析代码，不执行用户源码，不推断运行结果。动态导入、继承解析、外部依赖副作用和嵌套定义不属于本版分析范围。\n\n缺少 docstring 的对象：无\n\n## 来源校验\n\n源码 SHA-256：0d30b9f34384d72ad266a244dc69337542059b3a31576f3df8b466c8d5faebcb",
+        "method": "ai",
+        "llm": {
+          "provider": "DeepSeek",
+          "model": "deepseek-flash",
+          "request_id": "748f6fac-2dbb-475d-928e-e250e6817d16",
+          "usage": {
+            "prompt_tokens": 964,
+            "completion_tokens": 410,
+            "total_tokens": 1374,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 196
+          },
+          "finish_reason": "stop"
+        },
+        "source_hash": "0d30b9f34384d72ad266a244dc69337542059b3a31576f3df8b466c8d5faebcb",
+        "revision": 1
+      },
+      "timestamp": "2026-10-13T03:41:14.450+00:00"
+    },
+    {
+      "sender": "reviewer",
+      "receiver": "orchestrator",
+      "kind": "approved",
+      "payload": {
+        "approved": true,
+        "checks": [
+          {
+            "name": "来源一致",
+            "passed": true
+          },
+          {
+            "name": "章节：模块概览",
+            "passed": true
+          },
+          {
+            "name": "章节：依赖与常量",
+            "passed": true
+          },
+          {
+            "name": "章节：API 参考",
+            "passed": true
+          },
+          {
+            "name": "章节：使用与限制",
+            "passed": true
+          },
+          {
+            "name": "章节：来源校验",
+            "passed": true
+          },
+          {
+            "name": "签名：calculate_total",
+            "passed": true
+          },
+          {
+            "name": "签名：OrderItem.subtotal",
+            "passed": true
+          },
+          {
+            "name": "类：OrderItem",
+            "passed": true
+          },
+          {
+            "name": "DeepSeek 语义审校",
+            "passed": true
+          }
+        ],
+        "issues": [],
+        "warnings": [],
+        "coverage": {
+          "covered": 2,
+          "total": 2
+        },
+        "semantic_review": {
+          "approved": true,
+          "issues": [],
+          "warnings": []
+        },
+        "llm": {
+          "provider": "DeepSeek",
+          "model": "deepseek-flash",
+          "request_id": "8eb91481-8226-43fe-9b62-6ea3a0f8aec2",
+          "usage": {
+            "prompt_tokens": 958,
+            "completion_tokens": 15,
+            "total_tokens": 973,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 190
+          },
+          "finish_reason": "stop"
+        },
+        "scope": "结构、签名、来源一致性；不保证自然语言语义正确。"
+      },
+      "timestamp": "2026-10-13T03:45:08.436+00:00"
+    }
+  ],
+  "logs": [
+    {
+      "time": "2026-10-13T03:41:11.529+00:00",
+      "event": "workflow_started",
+      "agent": null,
+      "detail": ""
+    },
+    {
+      "time": "2026-10-13T03:41:11.531+00:00",
+      "event": "node_started",
+      "agent": "analyzer",
+      "detail": "第 1 次执行"
+    },
+    {
+      "time": "2026-10-13T03:41:11.533+00:00",
+      "event": "node_completed",
+      "agent": "analyzer",
+      "detail": "发送 1 条消息"
+    },
+    {
+      "time": "2026-10-13T03:41:11.534+00:00",
+      "event": "node_started",
+      "agent": "writer",
+      "detail": "第 1 次执行"
+    },
+    {
+      "time": "2026-10-13T03:41:14.450+00:00",
+      "event": "node_completed",
+      "agent": "writer",
+      "detail": "发送 1 条消息"
+    },
+    {
+      "time": "2026-10-13T03:41:14.452+00:00",
+      "event": "node_started",
+      "agent": "reviewer",
+      "detail": "第 1 次执行"
+    },
+    {
+      "time": "2026-10-13T03:41:16.884+00:00",
+      "event": "node_failed",
+      "agent": "reviewer",
+      "detail": "DeepSeek 审校结果结构无效，可恢复重试。"
+    },
+    {
+      "time": "2026-10-13T03:45:07.229+00:00",
+      "event": "workflow_started",
+      "agent": null,
+      "detail": ""
+    },
+    {
+      "time": "2026-10-13T03:45:07.231+00:00",
+      "event": "checkpoint_reused",
+      "agent": "analyzer",
+      "detail": "复用已完成节点"
+    },
+    {
+      "time": "2026-10-13T03:45:07.232+00:00",
+      "event": "checkpoint_reused",
+      "agent": "writer",
+      "detail": "复用已完成节点"
+    },
+    {
+      "time": "2026-10-13T03:45:07.233+00:00",
+      "event": "node_started",
+      "agent": "reviewer",
+      "detail": "第 2 次执行"
+    },
+    {
+      "time": "2026-10-13T03:45:08.436+00:00",
+      "event": "node_completed",
+      "agent": "reviewer",
+      "detail": "发送 1 条消息"
+    },
+    {
+      "time": "2026-10-13T03:45:08.437+00:00",
+      "event": "workflow_completed",
+      "agent": null,
+      "detail": ""
+    }
+  ],
+  "attempts": {
+    "analyzer": 1,
+    "writer": 1,
+    "reviewer": 2
+  },
+  "error": null
+}
