@@ -24,7 +24,7 @@ python app.py
 
 ## DeepSeek 配置
 
-本机默认从 **`D:\deepseek\api.txt`** 读取密钥。该文件在项目外部，不会复制进源码或提交包。读取优先级是：
+本机默认从 **`D:\deepseek\api.txt`** 读取密钥。该文件在项目外部，不会复制进源码或代码仓库。读取优先级是：
 
 1. `DEEPSEEK_API_KEY` 环境变量。
 2. `DEEPSEEK_KEY_FILE` 指定的外部文件。
@@ -98,17 +98,11 @@ DocFlow/
 ├── static/                 中文操作界面
 ├── samples/                可运行的订单计算示例
 ├── tests/                  工作流与 HTTP 接口测试
-├── data/runs/              本机运行状态（提交包不携带个人运行数据）
+├── data/runs/              本机运行状态（不纳入版本管理）
 ├── evidence/               示例文档、运行证据、界面截图
-├── docs/                   测试报告、演示稿、课程要求对应表
+├── docs/                   测试报告与项目文档
 └── Design.md               架构、流程图、状态与扩展说明
 ```
-
-## 提交与演示
-
-提交源码压缩包即可；包内已有 README、Design、测试说明和真实 DeepSeek 示例。课程要求压缩包小于 200 MB，并按“学号姓名”命名，因此提交前请把包名改为自己的学号姓名。截图中的截止时间是 **2026 年 10 月 25 日 24 点**。没有替用户提交到课程平台，也没有创建远程仓库。
-
-可按 [一分钟演示稿](docs/Demo.md) 演示。设计说明见 [Design.md](Design.md)，课程要求对应见 [Requirements.md](docs/Requirements.md)。
 
 ## 适用范围
 
